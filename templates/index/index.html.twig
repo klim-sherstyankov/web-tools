@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Конвертер фотографий{% endblock %}
+
+{% block body %}
+  <div class="wrapper">
+    <h1>Онлайн конвертер изображений</h1>
+    {{ form_start(form) }}
+    {{ form_row(form._token) }}
+
+    {{ form_row(form.name, {input_attr: {class: 'form-control'},label_attr:{class: 'input-group-text'} }) }}
+    {{ form_row(form.extension, {select_attr: {class: 'custom-select custom-select-sm'} }) }}
+    {{ form_row(form.range, {input_attr: {class: 'custom-range'} }) }}
+
+    {{ form_row(form.save,{'attr': {class: 'btn btn-primary'}}) }}
+
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

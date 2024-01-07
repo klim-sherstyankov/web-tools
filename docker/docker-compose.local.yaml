@@ -1,0 +1,53 @@
+version: "3.7"
+
+volumes:
+    app_volume:
+        name: ${PROJECT_NAME}_app_volume
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: "${PWD}"
+
+services:
+    db:
+        container_name: ${COMPOSE_PROJECT_NAME}-db
+        build: db
+        restart: always
+        command: --lower_case_table_names=2
+#        volumes:
+#            - ./db/mysql.cnf:/etc/percona-server.conf.d/custom.cnf
+#            - ./db/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+#            - ./.data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_HOST: ${MYSQL_HOST}
+        ports:
+            - 3306:3306
+
+    php:
+        build:
+            target: build_with_devs
+            context: ./..
+            dockerfile: ./docker/php/Dockerfile
+        ports:
+            - 9000:9000
+        volumes:
+            - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+            - app_volume:/app
+            - ./php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+        environment:
+            PHP_IDE_CONFIG: serverName=affiliate
+        tty: true
+
+    nginx:
+        depends_on:
+            - php
+        ports:
+            - 80:80
+        volumes:
+            - ./.data/nginx/logs:/var/log/nginx
+            - app_volume:/app

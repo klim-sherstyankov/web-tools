@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Работа с данными о сети{% endblock %}
+
+{% block body %}
+  <div class="wrapper">
+    <div class="item-container">
+        <h1>Сеть</h1>
+        <input type="radio" checked name="radio" form="hash_form" id="tab-1" value="text">
+        <label class="item-label btn btn-secondary" for="tab-1">
+          Ip-адрес
+        </label>
+        <input type="radio"  name="radio" form="hash_form" id="tab-2" value="file">
+        <label class="item-label btn btn-secondary" for="tab-2" >
+          ???
+        </label>
+
+        <div class="tab-1">
+              {# <form id="qrText" method="post" action="{{ path('qr_text') }}" >
+                {{ form_row(formText._token) }}
+                {{ form_row(formText.text, {input_attr: {class: 'form-control'},label_attr:{class: 'textarea-text'} }) }}
+                {{ form_row(formText.save,{'attr': {class: 'btn btn-primary'}}) }}
+            </form>
+            <div class="result-qr-file"></div> #}
+        </div>
+
+        <div class="tab-2">
+          {#   <form id="qrFile" method="post" action="{{ path('qr_file') }}" >
+
+                {{ form_row(formFile._token) }}
+                {{ form_row(formFile.fileName, {input_attr: {class: 'form-control'},label_attr:{class: 'input-group-text'} }) }}
+                {{ form_row(formFile.save,{'attr': {class: 'btn btn-primary'}}) }}
+            </form>
+            <div class="result-text"></div> #}
+        </div>
+    </div>
+
+  </div>
+{% endblock %}

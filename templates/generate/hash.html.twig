@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Расчет хеш-суммы строки или файла!{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+  <h1>Расчет хеш-суммы строки или файла</h1>
+  <div class="item-container">
+    <input type="radio" checked name="radio" form="hash_form" id="tab-1" value="text">
+    <label class="item-label btn btn-secondary" for="tab-1">
+      Текст
+    </label>
+    <input type="radio" {% if type == 'file' %}checked{% endif %} name="radio" form="hash_form" id="tab-2" value="file">
+    <label class="item-label btn btn-secondary" for="tab-2" >
+      Файл
+    </label>
+    <div class="tab-1">
+      {{ form_start(formText) }}
+      {{ form_row(formText._token) }}
+
+      <div class="my-custom-class-for-errors">
+        {{ form_errors(formText) }}
+      </div>
+      <div class="tab-1-text">
+        {{ form_row(formText.text, {select_attr: {class: 'tab-1-text'} }) }}
+      </div>
+      {{ form_row(formText.extension, {select_attr: {class: 'custom-select custom-select-sm'} }) }}
+
+      {{ form_row(formText.save,{'attr': {class: 'btn btn-primary'}}) }}
+      {{ form_end(formText) }}
+      {% if hashText %}
+      <div class="result-hash">
+        {{ hashText }}
+      </div>
+      {% endif %}
+    </div>
+    <div class="tab-2">
+      {{ form_start(formFile) }}
+       {{ form_row(formFile.fileName, {input_attr: {class: 'form-control'},label_attr:{class: 'input-group-text'} }) }}
+      {{ form_row(formFile.extension, {select_attr: {class: 'custom-select custom-select-sm'} }) }}
+      {{ form_row(formFile.save,{'attr': {class: 'btn btn-primary'}}) }}
+      {{ form_end(formFile) }}
+      {% if hashFile %}
+        <div class="result-hash">
+        <p>
+          {{ hashFile }}
+        </p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

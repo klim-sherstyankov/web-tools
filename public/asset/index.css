@@ -1,0 +1,108 @@
+.wrapper {
+  max-width: 112rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.form-extension label {
+  margin-right: .4rem;
+}
+
+.form-range label {
+  margin-right: .4rem;
+}
+
+.form-extension select {
+  padding: .2rem;
+}
+
+.form-name {
+  position: relative;
+  width: 25rem;
+  margin: 1rem;
+  margin-left: 0rem;
+  display: block;
+  height: 3rem;
+}
+
+.form-name input {
+  display: none;
+}
+
+/* .base-container{
+  margin: 1rem;
+} */
+.custom-file-label::after {
+  content: "Файл" !important;
+}
+
+.tab-1,
+.tab-2,
+#tab-1,
+#tab-2 {
+  display: none;
+}
+
+#tab-1:checked~.tab-1 {
+  display: block;
+}
+
+#tab-2:checked~.tab-2 {
+  display: block;
+}
+
+/* #tab-1:checked~.tab-1 {
+  margin-top: 2rem;
+  display: flex;
+}
+ */
+/* #tab-1:checked~.tab-1 .tab-1-file {
+  display: none;
+}
+#tab-2:checked~.tab-1 .tab-1-text {
+  display: none;
+} */
+
+#tab-1:checked+label {
+  background: #4A4F53;
+}
+
+#tab-2:checked+label {
+  background: #4A4F53;
+}
+
+.tab-1-text div {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 15px 0;
+}
+
+.result-hash {
+  margin: 10px 10px 10px 0;
+  border: 1px solid #a5a5a5;
+  width: fit-content;
+  padding: 10px;
+  color: var(--bs-red);
+  max-width: 100%;
+  overflow-y: hidden;
+  height: 80px;
+}
+.result-base64 div {
+  margin: 10px 10px 10px 0;
+  border: 1px solid #a5a5a5;
+  width: fit-content;
+  padding: 10px;
+  color: var(--bs-red);
+  max-width: 100%;
+  overflow-y: hidden;
+}
+.textarea-text{
+  display: block;
+}
+.tab-2 #baseText textarea{
+    resize: auto;
+    height: fit-content;
+    width: 50%;
+}
