@@ -58,4 +58,35 @@ class GenerateController extends AbstractController
             'type' => $type ?? 'text',
         ]);
     }
+
+    /**
+     * @Route("/api/generate", name="api_generate")
+     */
+    public function generate(Request $request): Response
+    {
+        $hash = new Hash();
+
+        $type = 'file';
+        $fileName = $request->get('fileName');
+        $extension = $request->get('extension');
+
+        if ($fileName) {
+            $extension = $request['extension']->getData();
+            $hashFile = hash_file($extension, $fileName);
+        } else {
+            $this->addFlash('notice', 'Выберите файл!');
+        }
+
+        $textHash = $request->get('text');
+        $extension = $request->get('extension');
+
+        if ($textHash) {
+            $hashText = $this->hashWorker->textHashWorker($extension, $textHash);
+        }
+
+        return $this->json([
+            'hashText' => $hashText ?? null,
+            'hashFile' => $hashFile ?? null,
+        ]);
+    }
 }

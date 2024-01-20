@@ -19,8 +19,7 @@ class QrController extends AbstractController
         protected ImageWorker $imageWorker,
         protected QrWorker    $qrService,
         protected FileWorker  $fileWorker
-    )
-    {
+    ) {
     }
 
     /**

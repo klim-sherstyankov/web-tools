@@ -67,6 +67,7 @@ class BaseGenerateController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $text = $form['text']->getData();
+
             if ($text) {
                 $base64 = base64_decode($text);
                 $image = $this->imageWorker->setFileData($base64);

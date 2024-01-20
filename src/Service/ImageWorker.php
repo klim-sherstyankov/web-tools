@@ -11,8 +11,7 @@ class ImageWorker
     public function __construct(
         private string $targetDirOut,
         private string $targetDir
-    )
-    {
+    ) {
     }
 
     /**
@@ -23,8 +22,7 @@ class ImageWorker
         string       $fileName,
         string       $extension,
         int          $range
-    ): ?string
-    {
+    ): ?string {
         $dw = 1600;
         $dh = 1600;
         $rawDir = $this->getTargetDir();
@@ -219,8 +217,7 @@ class ImageWorker
         $sourceHeigth,
         $destinationWidth,
         $destinationHeight
-    ): array
-    {
+    ): array {
         $ratio = $sourceWidth / $destinationWidth;
 
         if ($sourceHeigth / $ratio > $destinationHeight) {
@@ -238,8 +235,7 @@ class ImageWorker
         $outDirFileName,
         $quality = null,
         $resize = []
-    ): bool
-    {
+    ): bool {
         $textFile = ' ' . $sourceFile . ' -o ' . $outDirFileName;
 
         if ($quality) {

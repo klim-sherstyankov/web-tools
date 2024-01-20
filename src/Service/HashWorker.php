@@ -8,8 +8,7 @@ class HashWorker
         string $algo,
         string $data,
         bool   $binary = false
-    ): ?string
-    {
+    ): ?string {
         return hash($algo, $data, $binary);
     }
 }
