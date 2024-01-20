@@ -64,16 +64,13 @@ class GenerateController extends AbstractController
      */
     public function generate(Request $request): Response
     {
-        $fileName = $request->get('fileName');
+        $fileName = $request->files->get('file');
         $extension = $request->get('extension');
         $textHash = $request->get('text');
 
         if ($fileName) {
             $hashFile = hash_file($extension, $fileName);
-        } else {
-            $this->addFlash('notice', 'Выберите файл!');
         }
-
 
         if ($textHash) {
             $hashText = $this->hashWorker->textHashWorker($extension, $textHash);
