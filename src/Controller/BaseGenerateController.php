@@ -36,44 +36,34 @@ class BaseGenerateController extends AbstractController
     }
 
     /**
-     * @Route("/base64/fileGenerate", name="base64_file")
+     * @Route("/api/base64/fileGenerate", name="api_base64_file")
      */
     public function fileGenerate(Request $request): Response
     {
-        $form = $this->createForm(BaseFormFileType::class);
-        $form->handleRequest($request);
         $base64 = null;
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $fileName = $request->files->get('file');
+        $image = $this->imageWorker->getFileData($fileName);
 
-            $fileName = $form['fileName']->getData();
-            $image = $this->imageWorker->getFileData($fileName);
-
-            if ($image) {
-                $base64 = base64_encode($image);
-            }
+        if ($image) {
+            $base64 = base64_encode($image);
         }
 
-        return new JsonResponse($base64, 200);
+        return $this->json(['base64' => $base64]);
     }
 
     /**
-     * @Route("/base64/textGenerate", name="base64_text")
+     * @Route("/api/base64/textGenerate", name="api_base64_text")
      */
     public function textGenerate(Request $request): Response
     {
-        $form = $this->createForm(BaseFormTextType::class);
-        $form->handleRequest($request);
+        $text = $request->get('text');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $text = $form['text']->getData();
+        if ($text) {
+            $base64 = base64_decode($text);
+            $image = $this->imageWorker->setFileData($base64);
 
-            if ($text) {
-                $base64 = base64_decode($text);
-                $image = $this->imageWorker->setFileData($base64);
-
-                return $this->file($this->fileWorker->getFile($image));
-            }
+            return $this->file($this->fileWorker->getFile($image));
         }
 
         return new JsonResponse(400);
