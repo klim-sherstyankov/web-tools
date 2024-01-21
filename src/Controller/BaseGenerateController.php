@@ -57,7 +57,7 @@ class BaseGenerateController extends AbstractController
      */
     public function textGenerate(Request $request): Response
     {
-        $text = $request->get('text');
+        $text = $request->request->get('text');
 
         if ($text) {
             $base64 = base64_decode($text);

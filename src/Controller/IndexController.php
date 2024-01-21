@@ -54,6 +54,29 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/api/img", name="api_index")
+     *
+     * @throws ImagickException
+     */
+    public function apiImg(Request $request): Response
+    {
+        $image = new Image();
+
+        $fileData = $request->files->get('file');
+        $extension = $request->get('extension');
+        $range = (int)$request->get('range');
+
+        $fileNameRaw = $this->fileWorker->upload($fileData);
+        $pathInfo = pathinfo($fileNameRaw);
+        $fileNameOut = $pathInfo['filename'];
+
+        $imageWorker = $this->imageWorker->workWithImages($fileData, $fileNameRaw, $extension, $range);
+        $image->setName($fileNameOut);
+
+        return $this->file($this->fileWorker->getFile($imageWorker));
+    }
+
+    /**
      * @Route("/api/convert", name="api_convert")
      *
      * @throws ImagickException
