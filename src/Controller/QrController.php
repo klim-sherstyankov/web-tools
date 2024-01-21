@@ -76,4 +76,38 @@ class QrController extends AbstractController
 
         return new JsonResponse(400);
     }
+
+    /**
+     * @Route("/api/qr/fileGenerate", name="api_qr_file")
+     */
+    public function apiFfileGenerate(Request $request): Response
+    {
+        $fileData = $request->files->get('file');
+
+        if ($fileData) {
+            $fileNameRaw = $this->fileWorker->upload($fileData);
+            $pathinfo = pathinfo($fileNameRaw);
+            $text = $this->imageWorker->getQrText($pathinfo['basename']);
+
+            return new JsonResponse($text, 200);
+        }
+
+        return new JsonResponse(400);
+    }
+
+    /**
+     * @Route("/api/qr/textGenerate", name="api_qr_text")
+     */
+    public function apiTextGenerate(Request $request): Response
+    {
+        $text = $request->request->get('text');
+
+        if ($text) {
+            $urlQrImage = $this->qrService->getImage($text, $request->getSchemeAndHttpHost());
+
+            return new JsonResponse($urlQrImage, 200);
+        }
+
+        return new JsonResponse(400);
+    }
 }

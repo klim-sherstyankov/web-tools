@@ -1,3 +1,4 @@
 .env
 var
 vendor
+.php-cs-fixer.cache

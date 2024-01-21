@@ -24,7 +24,7 @@ class QrWorker
         $fileUrl = $absolutUrl . '/img/out/qr/' . $name . '.png';
 
         //кладем файл
-        $filePath = $this->filePath . '/qr/' . $name . '.png';
+        $filePath = $this->filePath . 'qr/' . $name . '.png';
 
         $writer = new Writer($renderer);
         $writer->writeFile($url, $filePath);
