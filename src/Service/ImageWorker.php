@@ -18,7 +18,6 @@ class ImageWorker
      * @throws \ImagickException
      */
     public function workWithImages(
-        UploadedFile $file,
         string       $fileName,
         string       $extension,
         int          $range
@@ -45,13 +44,8 @@ class ImageWorker
 
         switch ($extension) {
             case 'webp':
-                $fCwebp = $this->cwebp($sourceFile, $outDirFileName, $quality, ['width' => $dw, 'height' => $dh]);
-
-                if (!$fCwebp) {
-                    return null;
-                }
-
-                return $outDirFileName;
+                $_type = 'webp';
+                break;
             case 'jpg':
                 $_type = 'jpg';
                 break;
