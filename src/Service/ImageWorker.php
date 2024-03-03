@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Imagick;
+use ImagickException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zxing\QrReader;
 
@@ -15,12 +16,10 @@ class ImageWorker
     }
 
     /**
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     public function workWithImages(
-        string       $fileName,
-        string       $extension,
-        int          $range
+        $fileData, $fileName, $extension, $range
     ): ?string {
         $dw = 1600;
         $dh = 1600;
@@ -32,6 +31,7 @@ class ImageWorker
         }
 
         $sourceFile = $rawDir . $fileName;
+        $sourceFile = str_replace('//', '/', $sourceFile);
 
         if (is_readable($sourceFile)) {
             list($sw, $sh, $type, $attr) = getimagesize($sourceFile);
